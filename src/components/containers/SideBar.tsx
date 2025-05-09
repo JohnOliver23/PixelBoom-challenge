@@ -47,8 +47,8 @@ const configItems = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="bg-white text-black border-r border-border w-64 flex flex-col justify-between">
-      <SidebarContent className="py-5 px-4 flex flex-col ">
+    <Sidebar className="bg-white text-black border-r border-border w-64 fixed top-0 left-0 h-screen flex flex-col justify-between z-50">
+      <SidebarContent className="py-5 px-4 flex flex-col">
         <div className="flex flex-col gap-4 px-2">
           <div className="h-8 w-16 bg-black text-white rounded flex items-center justify-center text-xs font-semibold">
             Logo

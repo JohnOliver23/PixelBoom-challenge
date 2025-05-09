@@ -1,12 +1,10 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactQueryClientProvider } from "@/providers/ReacQueryClientProvider";
 import { AppSidebar } from "@/components/containers/SideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
-
+import { Navbar } from "@/components/ui/navBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,24 +21,19 @@ export const metadata: Metadata = {
   description: "Challenge of Pixel boom front end role",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryClientProvider>
           <SidebarProvider>
-            <div className="flex min-h-screen">
-              <AppSidebar />
+            <AppSidebar />
+            <Navbar />
+            <main className="flex-1 overflow-auto p-10 mt-14">{children}</main>
+            <div className="fixed top-4 left-4 z-50">
               <SidebarTrigger />
-              <main className="flex-1 p-6">{children}</main>
             </div>
-            </SidebarProvider>
+          </SidebarProvider>
         </ReactQueryClientProvider>
       </body>
     </html>
