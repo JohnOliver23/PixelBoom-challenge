@@ -1,5 +1,6 @@
 
 import { StatisticsList } from "./StatisticsList";
+import { UserSearch } from "./UserSearch";
 import { UsersHeader } from "./UsersHeader";
 
 
@@ -8,6 +9,7 @@ export default function UsersPage() {
     <section className="flex flex-col gap-5">
       <UsersHeader />
       <StatisticsList />
+      <UserSearch />
     </section>
   )
 }
