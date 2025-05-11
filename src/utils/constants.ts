@@ -3,4 +3,3 @@ export const userQueryKeys = {
     getOne: (userId: string | number) => ['users', userId],
     getEntityLabel: () => 'usuário',
   };
-  
