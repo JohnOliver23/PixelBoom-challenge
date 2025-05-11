@@ -1,5 +1,6 @@
 
 import { StatisticsList } from "./StatisticsList";
+import { UserList } from "./UserList";
 import { UserSearch } from "./UserSearch";
 import { UsersHeader } from "./UsersHeader";
 
@@ -10,6 +11,7 @@ export default function UsersPage() {
       <UsersHeader />
       <StatisticsList />
       <UserSearch />
+      <UserList />
     </section>
   )
 }
