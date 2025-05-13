@@ -12,7 +12,7 @@ export function UserSearch() {
       <Search className="absolute left-3 top-4.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <Input 
         placeholder="Buscar..."
-        className="pl-9 !bg-primary-foreground"
+        className="pl-9 !bg-white"
       />
     </div>
         <Button variant="outline" className="gap-2 rounded-full p-5 mt-[-3px]">
