@@ -10,10 +10,17 @@ const userFormSchema = z.object({
   email: z.string().email('E-mail inválido').nullable().optional(),
   phone: z.string().min(11, 'Telefone inválido').nullable().optional(),
   whatsapp: z.boolean().nullable().optional(),
-  cpf: z.string().length(11, 'CPF inválido').nullable().optional(),
+  cpf: z
+  .string()
+  .transform((val) => val?.replace(/\D/g, ''))
+  .refine((val) => !val || val.length === 11, {
+    message: 'CPF inválido',
+  })
+  .nullable()
+  .optional(),
   rg: z.string().min(7, 'RG inválido').nullable().optional(),
   gender: z.enum(['male', 'female'], { required_error: "Campo obrigatório" }).nullable(),
-  status: z.boolean().default(true),
+  status: z.boolean().default(true).optional(),
   birthDate: z.string({ required_error: "Campo obrigatório" }).nullable()
 })
 
@@ -41,13 +48,13 @@ export function UserFormProvider({ children }: { children: React.ReactNode }) {
   const form = useForm<UserFormValues>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      status: true,
+     status: true,
     }
   })
 
   const resetForm = (defaultValues?: Partial<UserFormValues>) => {
     form.reset({
-      status: true,
+     status: true,
       ...defaultValues
     })
   }
@@ -59,7 +66,7 @@ export function UserFormProvider({ children }: { children: React.ReactNode }) {
     setIsOpen(true)
   }
 
-  const onEditFormOpen = (id: number, user: UserFormValues) => {
+  const onEditFormOpen = (id: number, user: Partial<UserFormValues>) => {
     let birthDate = ''
     if (user.birthDate) {
         const [day, month, year] = user.birthDate.split('/')

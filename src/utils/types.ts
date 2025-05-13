@@ -1,11 +1,17 @@
-// src/types/api.ts
+
 export interface ApiResponse<T> {
-    data: T;
-    status: number;
-    statusText: string;
-    headers: any;
-    config: any;
-  }
+  data: T;
+  status: number;
+  statusText: string;
+  headers: Record<string, string | string[] | undefined>;
+  config: {
+    url?: string;
+    method?: string;
+    headers?: Record<string, string>;
+    params?: Record<string, unknown>;
+    data?: unknown;
+  };
+}
   
   export interface PaginatedResponse<T> {
     count: number;

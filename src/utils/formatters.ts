@@ -38,6 +38,16 @@ export function getInitials(name: string): string {
   }
   
   export function formatUserJson(data: UserFormValues): UserJson {
+    const birthDate = data.birthDate;
+    if (!birthDate) {
+      throw new Error("birthDate é obrigatório para formatar o usuário");
+    }
+  
+    const birth = new Date(birthDate);
+    birth.setDate(birth.getDate() + 1);
+
+    const adjustedBirthday = birth.toISOString().split("T")[0];
+  
     return {
       name: data.name!,
       email: data.email!,
@@ -47,10 +57,10 @@ export function getInitials(name: string): string {
       rg: data.rg!,
       gender: data.gender!,
       status: !!data.status,
-      birthday: data.birthDate!,
-      age: calculateAge(data.birthDate), 
+      birthday: adjustedBirthday,
+      age: calculateAge(adjustedBirthday),
       time: "3822s",
-      typeUser: "Usuário Padrão", 
+      typeUser: "Usuário Padrão",
     };
   }
   
