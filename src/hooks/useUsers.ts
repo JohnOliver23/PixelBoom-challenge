@@ -1,14 +1,13 @@
 import { useQuery, useMutation, UseQueryResult, UseMutationResult } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
 import { useRepositories } from '@/repositories/user.repositories';
-import { Statistic, User } from '@/utils/types';
-
+import { Statistic, User, UserJson } from '@/utils/types';
 
 export function useUsers() {
   const listUsers: UseQueryResult<User[], Error> = useQuery({
-    queryKey: ['users'],
+    queryKey: ['users'], 
     queryFn: useRepositories.list,
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
   });
 
   const getStatistics: UseQueryResult<Statistic[], Error> = useQuery({
@@ -16,27 +15,27 @@ export function useUsers() {
     queryFn: useRepositories.getStatistics,
   });
 
-  const createUserMutation: UseMutationResult<User, Error, Omit<User, 'id'>> = useMutation({
-    mutationFn: useRepositories.create,
+  const createUserMutation: UseMutationResult<UserJson, Error, Omit<UserJson, 'id'>> = useMutation({
+    mutationFn: (data) => useRepositories.create(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] }); 
     },
     onError: (error) => {
       console.error('Erro ao criar usuário:', error);
     },
   });
 
-  const updateUserMutation: UseMutationResult<User, Error, { id: number; data: Partial<User> }> = useMutation({
+  const updateUserMutation: UseMutationResult<UserJson, Error, { id: number; data: Partial<UserJson> }> = useMutation({
     mutationFn: ({ id, data }) => useRepositories.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] }); 
     },
   });
 
   const deleteUserMutation: UseMutationResult<boolean, Error, number> = useMutation({
     mutationFn: useRepositories.remove,
     onSuccess: () => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] }); 
     },
   });
 

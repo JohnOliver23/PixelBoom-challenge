@@ -20,6 +20,22 @@ export interface ApiResponse<T> {
     value: string | number;
   }
   
+  export interface UserJson {
+    name: string;
+    age?: number;
+    gender: Gender;
+    birthday: string;
+    time?: string;
+    typeUser?: string;
+    status: boolean;
+    email: string;
+    phone: string;
+    whatsapp: boolean;
+    cpf: string;
+    rg: string;
+  }
+  
+  
   export interface User {
     id: number;
     name: string;
@@ -29,6 +45,11 @@ export interface ApiResponse<T> {
     time: string;
     typeUser: string;
     status: 'Ativo' | 'Inativo';
+    email: string;
+    phone: string;
+    whatsapp: boolean;
+    cpf: string;
+    rg: string;
   }
 
 export type Gender = "male" | "female";
